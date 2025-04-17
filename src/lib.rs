@@ -1,7 +1,7 @@
 use rand::prelude::*;
 use std::{cell::RefCell, rc::Rc, time::Instant};
 
-pub const BIG_STRUCT_SIZE: usize = 1024;
+pub const BIG_STRUCT_SIZE: usize = 16 * 1024;
 pub const NUM_ENRICHERS: usize = 100;
 
 pub const TRANSLATION: f64 = 0.;
