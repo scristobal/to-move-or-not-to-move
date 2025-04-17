@@ -1,29 +1,29 @@
 use rand::prelude::*;
 use std::{cell::RefCell, rc::Rc, time::Instant};
 
-pub const BIG_STRUCT_SIZE: u64 = 1024 * 1024;
-pub const NUM_ENRICHERS: usize = 10;
+pub const BIG_STRUCT_SIZE: usize = 1024;
+pub const NUM_ENRICHERS: usize = 100;
 
 pub const TRANSLATION: f64 = 0.;
 pub const BASE: f64 = 16.;
 pub const ITERATIONS: u64 = 10;
 
 pub struct BigStruct {
-    input: Vec<f64>,
-    out: Vec<f64>,
+    input: [f64; BIG_STRUCT_SIZE],
+    out: [f64; BIG_STRUCT_SIZE],
     time: Instant,
 }
 
 impl BigStruct {
-    pub fn new(size: u64) -> Self {
+    pub fn new(size: usize) -> Self {
         let mut rng = rand::rng();
 
-        let mut input = Vec::with_capacity(size as usize);
-        let mut out = Vec::with_capacity(size as usize);
+        let mut input = [0.0; BIG_STRUCT_SIZE];
+        let mut out = [0.0; BIG_STRUCT_SIZE];
 
-        for _ in 0..size {
-            input.push(rng.random());
-            out.push(rng.random());
+        for i in 0..size {
+            input[i] = rng.random();
+            out[i] = rng.random();
         }
 
         let time = Instant::now();
