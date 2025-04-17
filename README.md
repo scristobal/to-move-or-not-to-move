@@ -1,18 +1,14 @@
 # To move or not to move (stack edition)
 
-What is faster, move ownership arround or using a smart pointer?
+What is faster, move ownership arround, reference the struct or using a smart pointer?
 
 ```
-enrich by move BigStruct
-                        time:   [26.082 ms 26.114 ms 26.149 ms]
-                        change: [-0.7355% -0.4322% -0.1780%] (p = 0.00 < 0.05)
-                        Change within noise threshold.
-
-enrich by Rc<RefCell<BigStruct>>
-                        time:   [24.567 ms 24.602 ms 24.646 ms]
-                        change: [+0.6825% +0.8927% +1.1089%] (p = 0.00 < 0.05)
-                        Change within noise threshold.
-
+To move or not to move/enrich by move BigStruct
+                        time:   [26.435 ms 26.444 ms 26.453 ms]
+To move or not to move/enrich by Rc<RefCell<BigStruct>>
+                        time:   [24.227 ms 24.281 ms 24.352 ms]
+To move or not to move/enrich by mutable reference of BigStruct
+                        time:   [24.183 ms 24.194 ms 24.206 ms]
 ```
 
 

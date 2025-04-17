@@ -101,3 +101,34 @@ impl EnrichersRcRefCell {
         big
     }
 }
+
+struct EnricherMutRef {
+    a: usize,
+}
+
+impl EnricherMutRef {
+    pub fn enrich(&self, big: &mut BigStruct) {
+        for _ in 0..ITERATIONS {
+            for i in 0..big.input.len() {
+                let temp = big.out[i];
+                big.out[i] = shuffle(big.input[i], self.a);
+                big.input[i] = temp;
+            }
+        }
+        big.time = Instant::now();
+    }
+}
+
+pub struct EnrichersMutRef(Vec<EnricherMutRef>);
+
+impl EnrichersMutRef {
+    pub fn new(num: usize) -> Self {
+        EnrichersMutRef((0..num).map(|a| EnricherMutRef { a }).collect())
+    }
+
+    pub fn enrich(&self, big: &mut BigStruct) {
+        for enricher in &self.0 {
+            enricher.enrich(big)
+        }
+    }
+}
